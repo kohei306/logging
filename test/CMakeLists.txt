@@ -7,7 +7,7 @@ find_package(GTest CONFIG REQUIRED)
 target_link_libraries(${target}
   logging
    GTest::gtest
-  )
+ )
 
 set(cmd "${CMAKE_CURRENT_BINARY_DIR}/${target}")
 
