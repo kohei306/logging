@@ -1,0 +1,106 @@
+1.Usage
+
+There are two ways to configures / uses logging. without/with config file.
+Both case, below needs to be included.
+#include "logging/logger.h"
+#include "logging/log_manager.h"
+
+
+2.1 Withou using configuration in runtime with logging_config.txt (Implementation time configuration)
+
+using namespace logging; <= used for convenience of explanation.
+
+2.1.1 Add a default appender. Currently Console/AraLog are supported. By default all logger uses the default Appenders specified.
+  AppenderConfig appender_config(AppenderType::ARALOG, "AraLogAppender");
+  LogManager::GetInstance().AddAppender(AppenderFactory::CreateAppender<AraLogAppender>(appender_config));
+
+  AppenderConfig appender_config(AppenderType::CONSOLE, "ConsoleAppender");
+  LogManager::GetInstance().AddAppender(AppenderFactory::CreateAppender<ConsoleAppender>(appender_config));
+
+2.1.2 Create and get a pointer to Logger instance. If the Logger with the same name already exists (e.g. created from log config file)
+then it will get a pointer to the existing logger instance.
+
+logging::Logger* m_logger = logging::LogManager::GetInstance().GetLogger("Name");
+
+2.1.3 Set Log severity(FATAL, ERROR, WARN, INFO, DEBUG, VERBOSE, OFF). Default it is set to NOT_SELECTED.
+
+m_logger->SetLogLevel(logging::LogLevel::VERBOSE);
+
+2.1.4 Write output message
+
+  LOG_FATAL(m_logger, "Example Fatal level message");
+  LOG_ERROR(m_logger, "Example Error level message");
+  LOG_WARN(m_logger, "Example Warn level message");
+  LOG_INFO(m_logger, "Example Info level message");
+  LOG_DEBUG(m_logger, "Example Debug level message");
+  LOG_VERBOSE(m_logger, "Example Verbose level message");
+
+2.2 With config file (Runtime configuration)
+
+2.2.1 Set configuration for default appender and logger
+Below is the example of writing logging config file(example placed in logging/onfig/).
+
+######### logging_config.txt ##############################
+# Log config example
+# 
+# 1. Comment out by # (only at the start of the line)
+# 2. Space/Blank line will be ignored
+# 3. Default Appender will be used for all Loggers
+# 4. Currently Order of setting parameters matters so it should be like below
+# 5. AppenderType currently supports only console and Ara::log
+# 6. It should be grouped as Section. Currently two Sections [DefaultAppender] & [Logger] and one Sub Sectiopn [LoggerAppender].
+# 7. CustomParameters is Appender specific parameters(e.g. for Ara::log appender ). If there is non, specify as NONE. 
+
+[DefaultAppender]
+AppenderType=CONSOLE
+AppenderName=DefaultConsoleAppender
+LogLevel=VERBOSE
+CustomParameters=NONE
+
+[DefaultAppender]
+AppenderType=ARALOG
+AppendrName=DefaultAraLogAppender
+LogLevel=VERBOSE
+CustomParameters=AppID:SomeApp,AppDescription:Some Application,AraLogMode:CONSOLE,OutputFileDirectory:/home/
+
+[Logger]
+LoggerName=SubModuleA_Logger
+LogLevel=VERBOSE
+[LoggerAppender]
+AppenderType=CONSOLE
+AppenderName=FATALLoggerConsoleAppender
+LogLevel=FATAL
+CustomParameters=NONE
+
+[Logger]
+LoggerName=SubModuleB_Logger
+LogLevel=VERBOSE
+[LoggerAppender]
+AppenderType=CONSOLE
+AppenderName=VERBOSELoggerConsoleAppender
+LogLevel=FATAL
+CustomParameters=NONE
+
+# [Logger]
+# LoggerName=SubModuleC_Logger
+# LogLevel=VERBOSE
+# [LoggerAppender]
+# AppenderType=ARALOG
+# AppenderName=VERBOSELoggerConsoleAppender
+# LogLevel=FATAL
+# CustomParameters=NONE
+######################################
+
+2.2.2 Init logging with the config file
+
+LogManager::GetInstance().InitFromLogConfigFile("/path/to/log_config.txt");
+
+Init from config file overwrite setting for Logger, Default Appender which are set in code.
+
+2.2.3  Write output message
+  LOG_FATAL(m_logger, "Example Fatal level message");
+  LOG_ERROR(m_logger, "Example Error level message");
+  LOG_WARN(m_logger, "Example Warn level message");
+  LOG_INFO(m_logger, "Example Info level message");
+  LOG_DEBUG(m_logger, "Example Debug level message");
+  LOG_VERBOSE(m_logger, "Example Verbose level message");

@@ -1,0 +1,67 @@
+# Authour. Kohei Otsuka
+# 
+# 1. Comment out by # (only at the start of the line)
+# 2. Space/Blank line will be ignored
+# 3. Default Appender will be used for all Loggers
+# 4. Currently Order of setting parameters matters so it should be like below
+# 5. AppenderType currently supports only console and Ara::log
+# 6. It should be grouped as Section. Currently two Sections [DefaultAppender] & [Logger] and one Sub Sectiopn [LoggerAppender].
+# 7. CustomParameters is Appender specific parameters(e.g. for Ara::log appender, File appender ). If it is non, specify as NONE(For Console). 
+# 8. LogLevels are OFF, FATAL, ERROR, WARN, INFO, DEBUG, VERBOSE, NOT_SELECTED
+# 9. Appender LogLevel is stronger than Logger LogLevel. i.e. Even if A Logger LogLevel is DEBUG, if the Appender it is using has LogLevel FATAL,
+#    Only FATAL message is logged.
+ 
+
+[DefaultAppender]
+AppenderType=CONSOLE
+AppenderName=DefaultConsoleAppender
+LogLevel=VERBOSE
+CustomParameters=NONE
+
+#[DefaultAppender]
+#AppenderType=FILE
+#AppenderName=DefaultFileAppender
+#LogLevel=VERBOSE
+#CustomParameters=OutPutFileDirectory:/tmp/,OutPutFileNamePrefix:log_,FileOpenMode:APPEND
+
+#[DefaultAppender]
+#AppenderType=ARALOG
+#AppendrName=DefaultAraLogAppender
+#LogLevel=VERBOSE
+#CustomParameters=AppID:SomeApp,AppDescription:Some Applicaton,AraLogMode:CONSOLE,OutputFileDirectory:/home/
+
+#[Logger]
+#LoggerName=SubModuleA_Logger
+#LogLevel=VERBOSE
+#[LoggerAppender]
+#AppenderType=CONSOLE
+#AppenderName=FATALLoggerConsoleAppender
+#LogLevel=FATAL
+#CustomParameters=NONE
+
+#[Logger]
+#LoggerName=SubModuleB_Logger
+#LogLevel=VERBOSE
+#[LoggerAppender]
+#AppenderType=CONSOLE
+#AppenderName=VERBOSELoggerConsoleAppender
+#LogLevel=FATAL
+#CustomParameters=NONE
+
+# [Logger]
+# LoggerName=SubModuleC_Logger
+# LogLevel=VERBOSE
+# [LoggerAppender]
+# AppenderType=ARALOG
+# AppenderName=VERBOSELoggerConsoleAppender
+# LogLevel=FATAL
+# CustomParameters=NONE
+
+[Logger]
+LoggerName=SubModuleD_Logger
+LogLevel=VERBOSE
+[LoggerAppender]
+AppenderType=FILE
+AppenderName=SubModuleDFileAppender
+LogLevel=VERBOSE
+CustomParameters=OutPutFileDirectory:/tmp/,OutPutFileNamePrefix:log_,FileOpenMode:APPEND
