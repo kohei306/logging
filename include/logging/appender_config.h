@@ -41,10 +41,11 @@ enum class AppenderType {
 const inline std::string AppenderTypelToString(AppenderType appender_type) {
   std::string result = "Default";
   if (appender_type == AppenderType::CONSOLE) result = "CONSOLE";
-  if (appender_type == AppenderType::FILE) result = "FILE";
-  if (appender_type == AppenderType::SYSLOG) result = "SYSLOG";
-  if (appender_type == AppenderType::ARALOG) result = "ARALOG";
-  if (appender_type == AppenderType::NET) result = "NET";
+  else if (appender_type == AppenderType::FILE) result = "FILE";
+  else if (appender_type == AppenderType::SYSLOG) result = "SYSLOG";
+  else if (appender_type == AppenderType::ARALOG) result = "ARALOG";
+  else if (appender_type == AppenderType::NET) result = "NET";
+  else throw std::invalid_argument;
   return result;
 }
 
