@@ -20,8 +20,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#ifndef LOGGING_INCLUDE_LOGGING_DEFAULT_FORMAT_POLICY_H_
-#define LOGGING_INCLUDE_LOGGING_DEFAULT_FORMAT_POLICY_H_
+#ifndef INCLUDE_LOGGING_DEFAULT_FORMAT_POLICY_H_
+#define INCLUDE_LOGGING_DEFAULT_FORMAT_POLICY_H_
 
 #include <string>
 #include "log_event.h"
@@ -29,13 +29,12 @@
 namespace logging {
 
 class DefaultFormatPolicy {
-public:
-
-	std::string FormatMessage(const LogEvent & log_event) {
-      return std::string ("[" + log_event.m_logger_name + "] " + log_event.m_message);
-	};
+ public:
+  std::string FormatMessage(const LogEvent & log_event) {
+    return std::string ("[" + log_event.m_logger_name + "] " + log_event.m_message);
+  }
 };
 
 }  // namespace logging
 
-#endif /* LOGGING_INCLUDE_LOGGING_DEFAULT_FORMAT_POLICY_H_ */
+#endif  // INCLUDE_LOGGING_DEFAULT_FORMAT_POLICY_H_

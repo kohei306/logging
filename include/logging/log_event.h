@@ -20,8 +20,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#ifndef LOGGING_INCLUDE_LOGGING_LOG_EVENT_H_
-#define LOGGING_INCLUDE_LOGGING_LOG_EVENT_H_
+#ifndef INCLUDE_LOGGING_LOG_EVENT_H_
+#define INCLUDE_LOGGING_LOG_EVENT_H_
 
 #include<string>
 #include "logger_config.h"
@@ -36,7 +36,7 @@ class LogEvent {
 };
 
 const inline std::string LogLevelToString(LogLevel log_level) {
-   std::string result = "Default";
+  std::string result = "Default";
   if (log_level == LogLevel::FATAL) result =  "FATAL";
   else if (log_level == LogLevel::ERROR) result = "ERROR";
   else if (log_level == LogLevel::WARN) result = "WARN";
@@ -45,11 +45,11 @@ const inline std::string LogLevelToString(LogLevel log_level) {
   else if (log_level == LogLevel::VERBOSE) result = "VERBOSE";
   else if (log_level == LogLevel::OFF) result = "OFF";
   else if (log_level == LogLevel::NOT_SELECTED) result = "NOT_SELECTED";
-  else throw std::invalid_argument("Invalid log level.");;
+  else throw std::invalid_argument("Invalid log level.");
   return result;
 }
 
 }  // namespace logging
 
 
-#endif /* LOGGING_INCLUDE_LOGGING_LOG_EVENT_H_ */
+#endif  // INCLUDE_LOGGING_LOG_EVENT_H_

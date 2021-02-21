@@ -23,8 +23,8 @@
 #include <string>
 #include <iostream>
 #include <assert.h>
-#include "log_manager.h"
-#include "logger_map.h"
+#include "logging/log_manager.h"
+#include "logging/logger_map.h"
 
 namespace logging {
 
@@ -120,7 +120,7 @@ void LogManager::InitFromLogConfigFile(const std::string& file_name) {
 
   m_logging_configurator.Clear();
   // For Debug
- // PrintSummaryOfLogConfig();
+  // PrintSummaryOfLogConfig();
 }
 
 bool LogManager::IsDefaultAppenderExist(const std::string & appender_name) const {
@@ -133,4 +133,4 @@ std::size_t LogManager::GetNumDefaultAppenders() const {
 void LogManager::ConfigureLogging() {
 }
 
-} // namespace logging
+}  // namespace logging

@@ -24,14 +24,14 @@
 #include <algorithm>
 #include <memory>
 #include <iostream>
-#include "logger_map.h"
-#include "appender_factory.h"
+#include "logging/logger_map.h"
+#include "logging/appender_factory.h"
 
 namespace logging {
 
 LoggerMap::LoggerMap() : m_loggers(new LoggerPtrMap()) {
-   auto appender_config = std::make_unique<AppenderConfig>(AppenderType::CONSOLE, "DefaultConsoleAppender");
-   m_defalut_appenders.push_back(AppenderFactory::CreateAppender<ConsoleAppender>(std::move(appender_config)));
+  auto appender_config = std::make_unique<AppenderConfig>(AppenderType::CONSOLE, "DefaultConsoleAppender");
+  m_defalut_appenders.push_back(AppenderFactory::CreateAppender<ConsoleAppender>(std::move(appender_config)));
 }
 
 LoggerMap::~LoggerMap() {
@@ -66,17 +66,17 @@ AppenderAddableError LoggerMap::AddAppender(AppenderUnqPtr newAppender) {
   }
 
   AppenderList::iterator it = std::find_if(
-		  m_defalut_appenders.begin(), m_defalut_appenders.end(), [&newAppender](AppenderUnqPtr & appender) {
-	  bool result = false;
-	  if (appender->GetAppenderName() == newAppender->GetAppenderName()) {
-	    result = true;
-	  }
-      return result;});
+  m_defalut_appenders.begin(), m_defalut_appenders.end(), [&newAppender](AppenderUnqPtr & appender) {
+  bool result = false;
+  if (appender->GetAppenderName() == newAppender->GetAppenderName()) {
+    result = true;
+  }
+  return result;});
 
   if (it == m_defalut_appenders.end()) {
-	  m_defalut_appenders.push_back(std::move(newAppender));
+    m_defalut_appenders.push_back(std::move(newAppender));
   } else {
-	result = AppenderAddableError::APPENDER_EXIST;
+  result = AppenderAddableError::APPENDER_EXIST;
   }
   return result;
 }
@@ -85,50 +85,50 @@ AppenderAddableError LoggerMap::AddAppender(std::unique_ptr<AppenderConfig> new_
   AppenderAddableError result = AppenderAddableError::NO_ERROR;
   switch (new_appender_config->m_appender_type) {
     case (AppenderType::CONSOLE) : {
-        if (AppenderExist(new_appender_config->m_name) == false) {
-     	 AppenderUnqPtr appender(AppenderFactory::CreateAppender<ConsoleAppender>(std::move(new_appender_config)));
-     	 result = AddAppender(std::move(appender));
-        } else {
-          GetAppender(new_appender_config->m_name)->SetAppenderConfig(std::move(new_appender_config));
-          result = AppenderAddableError::APPENDER_EXIST;
-        }
-     break;
-     }
-     case (AppenderType::ARALOG) : {
+  if (AppenderExist(new_appender_config->m_name) == false) {
+    AppenderUnqPtr appender(AppenderFactory::CreateAppender<ConsoleAppender>(std::move(new_appender_config)));
+    result = AddAppender(std::move(appender));
+  } else {
+    GetAppender(new_appender_config->m_name)->SetAppenderConfig(std::move(new_appender_config));
+    result = AppenderAddableError::APPENDER_EXIST;
+  }
+    break;
+  }
+  case (AppenderType::ARALOG) : {
 #ifdef ARALOG
-         if (AppenderExist(new_appender_config->m_name) == false) {
-      	   AppenderUnqPtr appender(AppenderFactory::CreateAppender<AraLogAppender>(std::move(new_appender_config)));
-      	   result = AddAppender(std::move(appender));
-         } else {
-           GetAppender(new_appender_config->m_name)->SetAppenderConfig(std::move(new_appender_config));
-           result = AppenderAddableError::APPENDER_EXIST;
-         }
+    if (AppenderExist(new_appender_config->m_name) == false) {
+      AppenderUnqPtr appender(AppenderFactory::CreateAppender<AraLogAppender>(std::move(new_appender_config)));
+      result = AddAppender(std::move(appender));
+    } else {
+      GetAppender(new_appender_config->m_name)->SetAppenderConfig(std::move(new_appender_config));
+      result = AppenderAddableError::APPENDER_EXIST;
+    }
 #endif
-     break;
-     }
-     case (AppenderType::FILE) : {
-       if (AppenderExist(new_appender_config->m_name) == false) {
-         AppenderUnqPtr appender(AppenderFactory::CreateAppender<FileAppender>(std::move(new_appender_config)));
-         result = AddAppender(std::move(appender));
-       } else {
-         GetAppender(new_appender_config->m_name)->SetAppenderConfig(std::move(new_appender_config));
-         result = AppenderAddableError::APPENDER_EXIST;
-       }
-     break;
-     }
-     case (AppenderType::NET) : {
-     break;
-     }
-     case (AppenderType::SYSLOG) : {
-     break;
-     }
-     case (AppenderType::NONE) : {
-     break;
-     }
-     default : {
-     break;
-     }
-   }
+    break;
+    }
+    case (AppenderType::FILE) : {
+    if (AppenderExist(new_appender_config->m_name) == false) {
+      AppenderUnqPtr appender(AppenderFactory::CreateAppender<FileAppender>(std::move(new_appender_config)));
+      result = AddAppender(std::move(appender));
+    } else {
+      GetAppender(new_appender_config->m_name)->SetAppenderConfig(std::move(new_appender_config));
+      result = AppenderAddableError::APPENDER_EXIST;
+    }
+    break;
+    }
+    case (AppenderType::NET) : {
+    break;
+    }
+    case (AppenderType::SYSLOG) : {
+    break;
+    }
+    case (AppenderType::NONE) : {
+    break;
+    }
+    default : {
+    break;
+    }
+  }
   return result;
 }
 
@@ -165,13 +165,13 @@ bool LoggerMap::AddLogger(const std::string& name, LogLevel log_level) {
 bool LoggerMap::AppenderExist(const std::string & appender_name) {
   bool result = false;
   auto it = std::find_if(
-		  m_defalut_appenders.begin(), m_defalut_appenders.end(), [&appender_name](AppenderUnqPtr & appender_) {
-	  return (appender_->GetAppenderName() == appender_name);
+  m_defalut_appenders.begin(), m_defalut_appenders.end(), [&appender_name](AppenderUnqPtr & appender_) {
+    return (appender_->GetAppenderName() == appender_name);
   });
 
   if (it == m_defalut_appenders.end()) {
   } else {
-	result = true;
+    result = true;
   }
 
   return result;

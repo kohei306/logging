@@ -20,8 +20,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#ifndef LOGGING_INCLUDE_LOGGING_ARALOG_FORMAT_POLICY_H_
-#define LOGGING_INCLUDE_LOGGING_ARALOG_FORMAT_POLICY_H_
+#ifndef INCLUDE_LOGGING_ARA_LOG_FORMAT_POLICY_H_
+#define INCLUDE_LOGGING_ARA_LOG_FORMAT_POLICY_H_
 
 #include <string>
 #include "log_event.h"
@@ -29,12 +29,12 @@
 namespace logging {
 
 class AraLogFormatPolicy {
-public:
-	std::string FormatMessage(const LogEvent & event) const {
-      return std::string ("[" + event.m_logger_name + "] " + event.m_message);
-	};
+ public:
+  std::string FormatMessage(const LogEvent & event) const {
+    return std::string ("[" + event.m_logger_name + "] " + event.m_message);
+  }
 };
 
 }  // namespace logging
 
-#endif /* LOGGING_INCLUDE_LOGGING_ARALOG_FORMAT_POLICY_H_ */
+#endif  // INCLUDE_LOGGING_ARA_LOG_FORMAT_POLICY_H_

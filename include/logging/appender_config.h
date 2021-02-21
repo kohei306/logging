@@ -20,8 +20,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#ifndef LOGGING_INCLUDE_LOGGING_APPENDER_CONFIG_H_
-#define LOGGING_INCLUDE_LOGGING_APPENDER_CONFIG_H_
+#ifndef INCLUDE_LOGGING_APPENDER_CONFIG_H_
+#define INCLUDE_LOGGING_APPENDER_CONFIG_H_
 
 #include <string>
 #include <iostream>
@@ -45,7 +45,7 @@ const inline std::string AppenderTypelToString(AppenderType appender_type) {
   else if (appender_type == AppenderType::SYSLOG) result = "SYSLOG";
   else if (appender_type == AppenderType::ARALOG) result = "ARALOG";
   else if (appender_type == AppenderType::NET) result = "NET";
-  else throw std::invalid_argument;
+  else throw std::invalid_argument("Invalid appender type.");
   return result;
 }
 
@@ -55,7 +55,7 @@ class AppenderConfig {
   virtual ~AppenderConfig() = default;
   explicit AppenderConfig(AppenderType appender_type, std::string name, LogLevel m_level = LogLevel::VERBOSE);
   virtual bool IsValidConfig();
-  virtual void InitFromCustomParametersStr(const std::string & custom_parameters) {};
+  virtual void InitFromCustomParametersStr(const std::string & custom_parameters) {}
   AppenderType m_appender_type;
   LogLevel m_level;
   std::string m_name;
@@ -88,4 +88,4 @@ class FileAppenderConfig : public AppenderConfig {
 
 }  // namespace logging
 
-#endif  // LOGGING_INCLUDE_LOGGING_APPENDER_CONFIG_H_
+#endif  // INCLUDE_LOGGING_APPENDER_CONFIG_H_

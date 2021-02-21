@@ -20,8 +20,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#ifndef LOGGING_INCLUDE_LOGGING_LOG_LEVEL_H_
-#define LOGGING_INCLUDE_LOGGING_LOG_LEVEL_H_
+#ifndef INCLUDE_LOGGING_LOG_LEVEL_H_
+#define INCLUDE_LOGGING_LOG_LEVEL_H_
 
 #include <string>
 #include <cstdint>
@@ -69,4 +69,4 @@ const inline LogLevel LogLevellFromString(const std::string log_level) {
 
 }  // namespace logging
 
-#endif /* LOGGING_INCLUDE_LOGGING_LOG_LEVEL_H_ */
+#endif  // INCLUDE_LOGGING_LOG_LEVEL_H_

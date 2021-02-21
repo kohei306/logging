@@ -24,7 +24,7 @@
 #include <stdio.h>
 #include <time.h>
 #include <mutex>
-#include "file_appender.h"
+#include "logging/file_appender.h"
 
 namespace logging {
 
@@ -33,17 +33,17 @@ std::ofstream::openmode LogModeStrToOpenMode(const std::string & log_mode_str) {
   else if (log_mode_str == "ATEND") return std::ofstream::ate;
   else if (log_mode_str == "APPEND") return std::ofstream::app;
   else if (log_mode_str == "TRUNCATE") return std::ofstream::trunc;
-  else throw std::invalid_argument("Invalid log mode.")
+  else throw std::invalid_argument("Invalid log mode.");
 }
 
 std::string GetTimeStampedFileName(const std::string & file_name_prefix) {
   std::string file_name;
   time_t rawtime;
   struct tm * timeinfo;
-  char buffer [80];
-  time (&rawtime);
+  char buffer[80];
+  time(&rawtime);
   timeinfo = localtime(&rawtime);
-  strftime (buffer, 80, "%y-%m-%d-%H-%M-%S", timeinfo);
+  strftime(buffer, 80, "%y-%m-%d-%H-%M-%S", timeinfo);
   file_name = file_name_prefix + std::string(buffer);
   return file_name;
 }
@@ -54,10 +54,10 @@ AppenderBase::AppenderBase(std::move(appender_config), is_closed) {
   std::string file_name;
   if (file_appender_config->m_add_timestamp_to_file_name == "TRUE") {
     file_name = GetTimeStampedFileName(file_appender_config->m_file_name_prefix);
-  } else if (file_appender_config->m_add_timestamp_to_file_name == "FALSE"){
-	file_name = file_appender_config->m_file_name_prefix;
+  } else if (file_appender_config->m_add_timestamp_to_file_name == "FALSE") {
+    file_name = file_appender_config->m_file_name_prefix;
   } else {
-	file_name = file_appender_config->m_file_name_prefix;
+    file_name = file_appender_config->m_file_name_prefix;
   }
 
   std::string file_name_with_path;
@@ -65,22 +65,24 @@ AppenderBase::AppenderBase(std::move(appender_config), is_closed) {
   if (file_appender_config->m_output_file_path.back() != '/') {
     file_name_with_path = file_appender_config->m_output_file_path + '/' + file_name + ".txt";
   } else {
-	file_name_with_path = file_appender_config->m_output_file_path + file_name + ".txt";
+    file_name_with_path = file_appender_config->m_output_file_path + file_name + ".txt";
   }
   std::unique_lock<std::mutex> lock(m_mtx);
   try {
      m_ofs.open(file_name_with_path, std::ofstream::out | LogModeStrToOpenMode(file_appender_config->m_open_mode));
-   }
-   catch(std::exception& error) {
-	 std::cout << "Exception: " << error.what() << std::endl;
-     try{ m_ofs.close(); } catch(...){}
-   }
-   m_message_appender_host.AddHeader(m_ofs);
-   lock.unlock();
+  }
+  catch(std::exception& error) {
+    std::cout << "Exception: " << error.what() << std::endl;
+    try { m_ofs.close(); }
+    catch(...) {
+    }
+  }
+  m_message_appender_host.AddHeader(m_ofs);
+  lock.unlock();
 }
 
 void FileAppender::Close() {
-  try{ m_ofs.close(); } catch(...){}
+  try { m_ofs.close(); } catch(...) {}
 }
 
 void FileAppender::HookedDoSend(const LogEvent & log_event) {

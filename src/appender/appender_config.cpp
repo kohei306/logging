@@ -23,7 +23,7 @@
 #include <string>
 #include <sstream>
 #include <vector>
-#include "appender_config.h"
+#include "logging/appender_config.h"
 
 namespace logging {
 
@@ -32,7 +32,7 @@ AppenderConfig::AppenderConfig() : m_appender_type(AppenderType::NONE), m_level(
 AppenderConfig::AppenderConfig(AppenderType appender_type, std::string name, LogLevel m_level) : m_appender_type(appender_type), m_level(m_level), m_name(name) {}
 
 bool AppenderConfig::IsValidConfig() {
-	  return ((m_appender_type != AppenderType::NONE) && (m_name != ""));
+  return ((m_appender_type != AppenderType::NONE) && (m_name != ""));
 }
 
 AraLogAppenderConfig::AraLogAppenderConfig(AppenderType appender_type, std::string name) : AppenderConfig::AppenderConfig(appender_type, name) {}
@@ -41,12 +41,12 @@ AraLogAppenderConfig::AraLogAppenderConfig(AppenderType appender_type, std::stri
   : AppenderConfig::AppenderConfig(appender_type, name),  m_app_id(app_id), m_app_description(app_description), m_log_mode(log_mode), m_directory_path(directory_path) {}
 
 bool AraLogAppenderConfig::IsValidConfig() { return ((m_appender_type != AppenderType::NONE) && (m_name != "") && (m_app_id != "")
-		                                     && (m_app_description != "") && (m_log_mode !="") && (m_directory_path != ""));}
+                                                && (m_app_description != "") && (m_log_mode !="") && (m_directory_path != ""));}
 
 void AraLogAppenderConfig::InitFromCustomParametersStr(const std::string & custom_parameters) {
   std::stringstream ss(custom_parameters);
   std::vector<std::string> custom_parameter_key_values;
-  while(ss.good()) {
+  while ( ss.good() ) {
     std::string parameter;
     std::getline(ss, parameter, ',');
     custom_parameter_key_values.push_back(parameter);
@@ -84,7 +84,7 @@ bool FileAppenderConfig::IsValidConfig() { return ((m_appender_type != AppenderT
 void FileAppenderConfig::InitFromCustomParametersStr(const std::string & custom_parameters) {
   std::stringstream ss(custom_parameters);
   std::vector<std::string> custom_parameter_key_values;
-  while(ss.good()) {
+  while ( ss.good() ) {
     std::string parameter;
     std::getline(ss, parameter, ',');
     custom_parameter_key_values.push_back(parameter);
@@ -100,13 +100,13 @@ void FileAppenderConfig::InitFromCustomParametersStr(const std::string & custom_
     } else if (name == "AddTimeStampToFileName") {
       m_add_timestamp_to_file_name = value;
     } else if (name == "OutPutFileNamePrefix") {
-    	m_file_name_prefix = value;
+      m_file_name_prefix = value;
     } else if (name == "FileOpenMode") {
-    	m_open_mode = value;
+      m_open_mode = value;
     } else {
     }
   }
   std::cout << "CustomParameters: " << m_output_file_path << ", " << m_add_timestamp_to_file_name << ", " << m_file_name_prefix << ", " << m_open_mode << std::endl;
 }
 
-} // namespace logging
+}  // namespace logging

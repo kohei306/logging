@@ -20,9 +20,10 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#ifndef LOGGING_SRC_APPENDER_CONSOLE_APPENDER_H_
-#define LOGGING_SRC_APPENDER_CONSOLE_APPENDER_H_
+#ifndef INCLUDE_LOGGING_CONSOLE_APPENDER_H_
+#define INCLUDE_LOGGING_CONSOLE_APPENDER_H_
 
+#include <memory>
 #include "appender_base.h"
 #include "message_appender.h"
 #include "default_format_policy_with_newline.h"
@@ -38,12 +39,12 @@ class ConsoleAppender : public AppenderBase {
 
  protected:
   void HookedDoSend(const LogEvent & log_event) final;
-  void Flush() const { std::cout << std::flush; };
+  void Flush() const { std::cout << std::flush; }
 
  private:
-   MessageAppenderHost m_message_appender_host;
+  MessageAppenderHost m_message_appender_host;
 };
 
 }  // namespace logging
 
-#endif  // LOGGING_SRC_APPENDER_CONSOLE_APPENDER_H_
+#endif  // INCLUDE_LOGGING_CONSOLE_APPENDER_H_

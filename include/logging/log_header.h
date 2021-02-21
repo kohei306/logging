@@ -20,20 +20,20 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#ifndef LOGGING_INCLUDE_LOGGING_LOG_HEADER_H_
-#define LOGGING_INCLUDE_LOGGING_LOG_HEADER_H_
+#ifndef INCLUDE_LOGGING_LOG_HEADER_H_
+#define INCLUDE_LOGGING_LOG_HEADER_H_
 
 #include <string>
 
 namespace logging {
 
 class DefaultLogHeader {
-public:
-	std::string GetHeader() {
-      return std::string (  "##########################################################\n");
-	};
+ public:
+  std::string GetHeader() {
+    return std::string (  "##########################################################\n");
+  }
 };
 
 }  // namespace logging
 
-#endif /* LOGGING_INCLUDE_LOGGING_LOG_HEADER_H_ */
+#endif  // INCLUDE_LOGGING_LOG_HEADER_H_

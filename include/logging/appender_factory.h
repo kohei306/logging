@@ -20,10 +20,11 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#ifndef LOGGING_INCLUDE_LOGGING_APPENDER_FACTORY_H_
-#define LOGGING_INCLUDE_LOGGING_APPENDER_FACTORY_H_
+#ifndef INCLUDE_LOGGING_APPENDER_FACTORY_H_
+#define INCLUDE_LOGGING_APPENDER_FACTORY_H_
 
 #include <memory>
+#include <utility>
 #include "appender_interface.h"
 #include "console_appender.h"
 #include "file_appender.h"
@@ -43,4 +44,4 @@ class AppenderFactory {
 
 }  // namespace logging
 
-#endif  // LOGGING_INCLUDE_LOGGING_APPENDER_FACTORY_H_
+#endif  // INCLUDE_LOGGING_APPENDER_FACTORY_H_

@@ -22,12 +22,12 @@
 
 #include <algorithm>
 
-#include "logger.h"
-#include "log_manager.h"
-#include "appender_factory.h"
-#include "log_event.h"
-#include "log_level.h"
-#include "appender_interface.h"
+#include "logging/logger.h"
+#include "logging/log_manager.h"
+#include "logging/appender_factory.h"
+#include "logging/log_event.h"
+#include "logging/log_level.h"
+#include "logging/appender_interface.h"
 
 namespace logging {
 
@@ -144,19 +144,19 @@ AppenderAddableError Logger::AddAppender(AppenderUnqPtr newAppender) {
   }
 
   AppenderList::iterator it = std::find_if(
-         m_appenders.begin(), m_appenders.end(), [&newAppender](AppenderUnqPtr & appender) {
-	  bool result = false;
-	  if (appender->GetAppenderName() == newAppender->GetAppenderName()) {
-	    result = true;
-	  }
-      return result;});
+    m_appenders.begin(), m_appenders.end(), [&newAppender](AppenderUnqPtr & appender) {
+    bool result = false;
+    if (appender->GetAppenderName() == newAppender->GetAppenderName()) {
+      result = true;
+    }
+    return result;});
 
-  if (it == m_appenders.end()) {
-    m_appenders.push_back(std::move(newAppender));
-  } else {
-	result = AppenderAddableError::APPENDER_EXIST;
-  }
-  return result;
+    if (it == m_appenders.end()) {
+      m_appenders.push_back(std::move(newAppender));
+    } else {
+      result = AppenderAddableError::APPENDER_EXIST;
+    }
+    return result;
 }
 
 AppenderAddableError Logger::AddAppender(std::unique_ptr<AppenderConfig> new_appender_config) {
@@ -164,8 +164,8 @@ AppenderAddableError Logger::AddAppender(std::unique_ptr<AppenderConfig> new_app
   switch (new_appender_config->m_appender_type) {
     case (AppenderType::CONSOLE) : {
        if (AppenderExist(new_appender_config->m_name) == false) {
-    	 AppenderUnqPtr appender(AppenderFactory::CreateAppender<ConsoleAppender>(std::move(new_appender_config)));
-    	 result = AddAppender(std::move(appender));
+         AppenderUnqPtr appender(AppenderFactory::CreateAppender<ConsoleAppender>(std::move(new_appender_config)));
+         result = AddAppender(std::move(appender));
        } else {
          GetAppender(new_appender_config->m_name)->SetAppenderConfig(std::move(new_appender_config));
          result = AppenderAddableError::APPENDER_EXIST;
@@ -175,8 +175,8 @@ AppenderAddableError Logger::AddAppender(std::unique_ptr<AppenderConfig> new_app
     case (AppenderType::ARALOG) : {
 #ifdef ARALOG
        if (AppenderExist(new_appender_config->m_name) == false) {
-    	 AppenderUnqPtr appender(AppenderFactory::CreateAppender<AraLogAppender>(std::move(new_appender_config)));
-    	 result = AddAppender(std::move(appender));
+         AppenderUnqPtr appender(AppenderFactory::CreateAppender<AraLogAppender>(std::move(new_appender_config)));
+         result = AddAppender(std::move(appender));
        } else {
          GetAppender(new_appender_config->m_name)->SetAppenderConfig(std::move(new_appender_config));
          result = AppenderAddableError::APPENDER_EXIST;
@@ -233,8 +233,8 @@ AppenderRawPtr Logger::GetAppender(const std::string &name) const {
 bool Logger::AppenderExist(const std::string &appender_name) {
   bool result = false;
   auto it = std::find_if(
-		  m_appenders.begin(), m_appenders.end(), [&appender_name](AppenderUnqPtr & appender_) {
-	  return (appender_->GetAppenderName() == appender_name);
+    m_appenders.begin(), m_appenders.end(), [&appender_name](AppenderUnqPtr & appender_) {
+    return (appender_->GetAppenderName() == appender_name);
   });
 
   if (it == m_appenders.end()) {

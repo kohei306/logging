@@ -20,8 +20,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#ifndef LOGGING_INCLUDE_LOGGING_LOG_MANAGER_H_
-#define LOGGING_INCLUDE_LOGGING_LOG_MANAGER_H_
+#ifndef INCLUDE_LOGGING_LOG_MANAGER_H_
+#define INCLUDE_LOGGING_LOG_MANAGER_H_
 
 #include <string>
 #include <memory>
@@ -39,7 +39,7 @@ class LogManager {
     return instance;
   }
   ~LogManager() noexcept;
-  LoggerMapPtr GetLoggerMap() { return &m_logger_map;};
+  LoggerMapPtr GetLoggerMap() { return &m_logger_map; }
   AppenderAddableError AddDefaultAppender(std::unique_ptr<AppenderConfig> new_appender_config);
   void RemoveDefaultAppender(const std::string appender_name);
   void RemoveAllDefaultAppenders();
@@ -53,7 +53,7 @@ class LogManager {
   std::size_t GetNumDefaultAppenders() const;
 
   LogManager(LogManager const&) = delete;
-  void operator=(LogManager const&) =delete;
+  void operator = (LogManager const&) = delete;
 
   void PrintSummaryOfLogConfig() const;
 
@@ -69,4 +69,4 @@ class LogManager {
 
 }  // namespace logging
 
-#endif  // LOGGING_INCLUDE_LOGGING_LOG_MANAGER_H_
+#endif  // INCLUDE_LOGGING_LOG_MANAGER_H_

@@ -22,7 +22,7 @@
 
 #include <iostream>
 #include <assert.h>
-#include "aralog_appender.h"
+#include "logging/aralog_appender.h"
 
 namespace logging {
 
@@ -47,7 +47,7 @@ AraLogAppender::AraLogAppender(std::unique_ptr<AppenderConfig> appender_config, 
 AppenderBase::AppenderBase(std::move(appender_config), is_closed) {
   if (!m_is_aralog_initialized) {
     // TODO Make it configurable
-	AraLogAppenderConfig * ara_log_appender_config = dynamic_cast<AraLogAppenderConfig*>(m_appender_config.get());
+    AraLogAppenderConfig * ara_log_appender_config = dynamic_cast<AraLogAppenderConfig*>(m_appender_config.get());
     ara_log::InitLogging(ara_log_appender_config->m_app_id, ara_log_appender_config->m_app_description,
     ara_log::LogLevel::kVerbose, LogModeStrToEnum(ara_log_appender_config->m_log_mode), ara_log_appender_config->m_directory_path);
     m_is_aralog_initialized = true;
@@ -67,25 +67,25 @@ void AraLogAppender::Close() {
 void AraLogAppender::HookedDoSend(const LogEvent & log_event) {
   switch (log_event.log_level_) {
     case(LogLevel::FATAL):
-	  m_message_appender_host.SendMessage(ara_log::LogFatal(), log_event);
-      break;
+      m_message_appender_host.SendMessage(ara_log::LogFatal(), log_event);
+    break;
     case(LogLevel::ERROR):
-	  m_message_appender_host.SendMessage(ara_log::LogError() , log_event);
-      break;
+      m_message_appender_host.SendMessage(ara_log::LogError() , log_event);
+    break;
     case(LogLevel::WARN):
-	  m_message_appender_host.SendMessage(ara_log::LogWarn() , log_event);
-      break;
+      m_message_appender_host.SendMessage(ara_log::LogWarn() , log_event);
+    break;
     case(LogLevel::INFO):
-	  m_message_appender_host.SendMessage(ara_log::LogInfo() , log_event);
-      break;
+      m_message_appender_host.SendMessage(ara_log::LogInfo() , log_event);
+    break;
     case(LogLevel::DEBUG):
-	  m_message_appender_host.SendMessage(ara_log::LogDebug() , log_event);
-      break;
+      m_message_appender_host.SendMessage(ara_log::LogDebug() , log_event);
+    break;
     case(LogLevel::VERBOSE):
-	  m_message_appender_host.SendMessage(ara_log::LogVerbose() , log_event);
-      break;
+      m_message_appender_host.SendMessage(ara_log::LogVerbose() , log_event);
+    break;
     default:
-      break;
+    break;
   }
 }
 

@@ -20,8 +20,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#ifndef LOGGING_INCLUDE_LOGGING_LOGGER_H_
-#define LOGGING_INCLUDE_LOGGING_LOGGER_H_
+#ifndef INCLUDE_LOGGING_LOGGER_H_
+#define INCLUDE_LOGGING_LOGGER_H_
 
 #include <string>
 #include <memory>
@@ -29,7 +29,7 @@
 #include <atomic>
 #include <iostream>
 
-#include "appender_addable_interface.h"
+#include "logging/appender_addable_interface.h"
 
 namespace logging {
 
@@ -135,4 +135,4 @@ class Logger : public IAppenderAddable {
         if (logger.IsVerboseEnabled()) {\
            logger.LogVerbose(message); }} \
 
-#endif  // LOGGING_INCLUDE_LOGGING_LOGGER_H_
+#endif  // INCLUDE_LOGGING_LOGGER_H_

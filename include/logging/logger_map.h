@@ -20,10 +20,10 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#ifndef LOGGING_INCLUDE_LOGGING_LOGGER_MAP_H_
-#define LOGGING_INCLUDE_LOGGING_LOGGER_MAP_H_
+#ifndef INCLUDE_LOGGING_LOGGER_MAP_H_
+#define INCLUDE_LOGGING_LOGGER_MAP_H_
 
-#include <mutex>
+#include <thread>
 #include <string>
 #include <memory>
 #include <map>
@@ -42,7 +42,7 @@ class LoggerMap : public IAppenderAddable {
 
   bool IsLoggerExists(const std::string& name) const;
 
-  std::size_t GetNumLoggers() const { return m_loggers->size(); };
+  std::size_t GetNumLoggers() const { return m_loggers->size(); }
 
   LoggerRef GetLogger(const std::string& name) const;
 
@@ -55,7 +55,7 @@ class LoggerMap : public IAppenderAddable {
   bool AddLogger(const std::string& name, LogLevel log_level = LogLevel::NOT_SELECTED);
 
   bool AppenderExist(const std::string & appender_name) final;
-  std::size_t GetNumDefaultAppenders() const { return m_defalut_appenders.size(); };
+  std::size_t GetNumDefaultAppenders() const { return m_defalut_appenders.size(); }
 
   void RemoveAllAppenders() final;
 
@@ -83,4 +83,4 @@ class LoggerMap : public IAppenderAddable {
 
 }  // namespace logging
 
-#endif  // LOGGING_INCLUDE_LOGGING_LOGGER_MAP_H_
+#endif  // INCLUDE_LOGGING_LOGGER_MAP_H_

@@ -20,13 +20,14 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#ifndef LOGGING_INCLUDE_LOGGING_LOGGING_CONFIGURATOR_H_
-#define LOGGING_INCLUDE_LOGGING_LOGGING_CONFIGURATOR_H_
+#ifndef INCLUDE_LOGGING_LOGGING_CONFIGURATOR_H_
+#define INCLUDE_LOGGING_LOGGING_CONFIGURATOR_H_
 
 #include <vector>
 #include <memory>
-#include "logger_config.h"
-#include "appender_config.h"
+#include <string>
+#include "logging/logger_config.h"
+#include "logging/appender_config.h"
 
 namespace logging {
 
@@ -45,4 +46,4 @@ class LoggingConfigurator {
 
 }  // namespace logging
 
-#endif  // LOGGING_INCLUDE_LOGGING_LOGGING_CONFIGURATOR_H_
+#endif  // INCLUDE_LOGGING_LOGGING_CONFIGURATOR_H_

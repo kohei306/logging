@@ -20,12 +20,14 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#ifndef LOGGING_INCLUDE_LOGGING_FILE_APPENDER_H_
-#define LOGGING_INCLUDE_LOGGING_FILE_APPENDER_H_
+#ifndef INCLUDE_LOGGING_FILE_APPENDER_H_
+#define INCLUDE_LOGGING_FILE_APPENDER_H_
 
 #include <stdio.h>
-#include <mutex>
+#include <thread>
+#include <memory>
 #include <fstream>
+#include <string>
 #include "appender_base.h"
 #include "message_appender.h"
 #include "default_format_policy_with_newline.h"
@@ -40,7 +42,7 @@ class FileAppender : public AppenderBase {
 
  protected:
   void HookedDoSend(const LogEvent & log_event) final;
-  void Flush() { m_ofs << std::flush; };
+  void Flush() { m_ofs << std::flush; }
 
  private:
   std::mutex m_mtx;
@@ -52,4 +54,4 @@ class FileAppender : public AppenderBase {
 }  // namespace logging
 
 
-#endif  // LOGGING_INCLUDE_LOGGING_FILE_APPENDER_H_
+#endif  // INCLUDE_LOGGING_FILE_APPENDER_H_

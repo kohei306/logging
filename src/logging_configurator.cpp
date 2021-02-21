@@ -24,13 +24,13 @@
 #include <fstream>
 #include <algorithm>
 
-#include "logging_configurator.h"
+#include "logging/logging_configurator.h"
 
 namespace logging {
 
 bool LoggingConfigurator::ReadConfigFromFile(const std::string & file_name) {
   bool result = true;
-  std::ifstream cFile (file_name);
+  std::ifstream cFile(file_name);
   enum class Section {
     DEFAULT_APPENDER,
     LOGGER,
@@ -48,9 +48,9 @@ bool LoggingConfigurator::ReadConfigFromFile(const std::string & file_name) {
     SubSection sub_section_state = SubSection::NONE;
     std::unique_ptr<AppenderConfig> appender_config(nullptr);
     std::unique_ptr<LoggerConfig> logger_config(nullptr);
-    while(getline(cFile, line)){
+    while (getline(cFile, line)) {
       line.erase(std::remove_if(line.begin(), line.end(), isspace), line.end());
-      if(line[0] == '#' || line.empty()) {
+      if (line[0] == '#' || line.empty()) {
         continue;
       }
       if (line[0] == '[') {
@@ -90,7 +90,7 @@ bool LoggingConfigurator::ReadConfigFromFile(const std::string & file_name) {
             appender_config->m_name = value;
           } else if (name == "LogLevel") {
             appender_config->m_level = LogLevellFromString(value);
-          } else if (name == "CustomParameters"){
+          } else if (name == "CustomParameters") {
             appender_config->InitFromCustomParametersStr(value);
             if (appender_config->IsValidConfig()) {
               m_default_appender_configs.push_back(std::move(appender_config));
@@ -103,7 +103,7 @@ bool LoggingConfigurator::ReadConfigFromFile(const std::string & file_name) {
         }
         case(Section::LOGGER): {
            if (name == "LoggerName") {
-        	 logger_config = std::make_unique<LoggerConfig>();
+             logger_config = std::make_unique<LoggerConfig>();
              logger_config->m_name = value;
            } else if (name == "LogLevel" && sub_section_state == SubSection::NONE) {
              if (LogLevellFromString(value) == LogLevel::FATAL) {
@@ -141,7 +141,7 @@ bool LoggingConfigurator::ReadConfigFromFile(const std::string & file_name) {
              appender_config->m_name = value;
            } else if (name == "LogLevel" && sub_section_state == SubSection::LOGGER_APPENDER) {
              appender_config->m_level = LogLevellFromString(value);
-           } else if (name == "CustomParameters"){
+           } else if (name == "CustomParameters") {
              appender_config->InitFromCustomParametersStr(value);
              if (appender_config->IsValidConfig()) {
                logger_config->m_appender_configs.push_back(std::move(appender_config));

@@ -20,13 +20,13 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#ifndef LOGGING_INCLUDE_LOGGING_APPENDER_ADDABLE_INTERFACE_H_
-#define LOGGING_INCLUDE_LOGGING_APPENDER_ADDABLE_INTERFACE_H_
+#ifndef INCLUDE_LOGGING_APPENDER_ADDABLE_INTERFACE_H_
+#define INCLUDE_LOGGING_APPENDER_ADDABLE_INTERFACE_H_
 
 #include <vector>
 #include <string>
 #include <memory>
-#include "appender_interface.h"
+#include "logging/appender_interface.h"
 
 namespace logging {
 
@@ -37,7 +37,7 @@ enum class AppenderAddableError {
 };
 
 class IAppenderAddable {
-   public:
+ public:
     virtual AppenderAddableError AddAppender(std::unique_ptr<AppenderConfig> new_appender_config) = 0;
 
     virtual AppenderList & GetAllAppenders() = 0;
@@ -53,7 +53,7 @@ class IAppenderAddable {
 
     virtual ~IAppenderAddable() = default;
 
-   private:
+ private:
     virtual AppenderAddableError AddAppender(AppenderUnqPtr new_appender) = 0;
 };
 
@@ -61,4 +61,4 @@ class IAppenderAddable {
 
 
 
-#endif /* LOGGING_INCLUDE_LOGGING_APPENDER_ADDABLE_INTERFACE_H_ */
+#endif  // INCLUDE_LOGGING_APPENDER_ADDABLE_INTERFACE_H_

@@ -20,12 +20,13 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#ifndef LOGGING_INCLUDE_LOGGING_APPENDER_BASE_H_
-#define LOGGING_INCLUDE_LOGGING_APPENDER_BASE_H_
+#ifndef INCLUDE_LOGGING_APPENDER_BASE_H_
+#define INCLUDE_LOGGING_APPENDER_BASE_H_
 
 #include <atomic>
 #include <string>
 #include <memory>
+#include <utility>
 #include "appender_interface.h"
 #include "appender_config.h"
 
@@ -46,7 +47,7 @@ class AppenderBase : public IAppender {
 
   std::string GetAppenderName() override { return m_appender_config->m_name; }
 
-  LogLevel GetAppenderLogLevel() { return m_appender_config->m_level; };
+  LogLevel GetAppenderLogLevel() { return m_appender_config->m_level; }
 
  protected:
     std::unique_ptr<AppenderConfig> m_appender_config;
@@ -56,4 +57,4 @@ class AppenderBase : public IAppender {
 
 }  // namespace logging
 
-#endif  // LOGGING_INCLUDE_LOGGING_APPENDER_BASE_H_
+#endif  // INCLUDE_LOGGING_APPENDER_BASE_H_

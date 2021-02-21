@@ -21,7 +21,7 @@
 // SOFTWARE.
 
 #include <iostream>
-#include "console_appender.h"
+#include "logging/console_appender.h"
 
 namespace logging {
 
@@ -29,7 +29,7 @@ ConsoleAppender::ConsoleAppender() : AppenderBase::AppenderBase(std::make_unique
 }
 
 ConsoleAppender::ConsoleAppender(std::unique_ptr<AppenderConfig> appender_config, bool is_closed) :
-AppenderBase::AppenderBase(std::move(appender_config), is_closed){
+AppenderBase::AppenderBase(std::move(appender_config), is_closed) {
   m_message_appender_host.AddHeader(std::cout);
 }
 

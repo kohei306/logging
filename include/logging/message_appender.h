@@ -20,48 +20,47 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#ifndef LOGGING_INCLUDE_LOGGING_MESSAGE_APPENDER_H_
-#define LOGGING_INCLUDE_LOGGING_MESSAGE_APPENDER_H_
+#ifndef INCLUDE_LOGGING_MESSAGE_APPENDER_H_
+#define INCLUDE_LOGGING_MESSAGE_APPENDER_H_
 
 
 #include <string>
 #include <utility>
 
-#include "log_event.h"
-#include "log_header.h"
+#include "logging/log_event.h"
+#include "logging/log_header.h"
 
-#ifdef	ARALOG
+#ifdef ARALOG
 #include <ara/logging.hpp>
 #endif
 
 namespace logging {
 
 template <class FormatPolicy, class LogHeader = DefaultLogHeader>
-class MessageAppender: public FormatPolicy, LogHeader
-{
-  public:
-	template <class OutPutChannel>
-	void SendMessage(OutPutChannel && output_channel, const LogEvent & event) {
-		std::string message {FormatPolicy::FormatMessage(event)};
-		std::forward<OutPutChannel>(output_channel) << message;
-	};
+class MessageAppender: public FormatPolicy, LogHeader {
+ public:
+  template <class OutPutChannel>
+  void SendMessage(OutPutChannel && output_channel, const LogEvent & event) {
+    std::string message { FormatPolicy::FormatMessage(event) };
+    std::forward<OutPutChannel>(output_channel) << message;
+  }
 
-#ifdef	ARALOG
-	// Ara::log overload
-	void SendMessage(ara_log::LogStream && output_channel, const LogEvent & event) {
-		std::string message {FormatPolicy::FormatMessage(event)};
-		std::forward<ara_log::LogStream>(output_channel) << message;
-	};
+#ifdef ARALOG
+  // Ara::log overload
+  void SendMessage(ara_log::LogStream && output_channel, const LogEvent & event) {
+    std::string message { FormatPolicy::FormatMessage(event) };
+    std::forward<ara_log::LogStream>(output_channel) << message;
+  }
 #endif
 
-	template <class OutPutChannel>
-	void AddHeader(OutPutChannel && output_channel) {
-		std::string header {LogHeader::GetHeader()};
-		std::forward<OutPutChannel>(output_channel) << header;
-	};
+  template <class OutPutChannel>
+  void AddHeader(OutPutChannel && output_channel) {
+    std::string header { LogHeader::GetHeader() };
+    std::forward<OutPutChannel>(output_channel) << header;
+  }
 };
 
 }  // namespace logging
 
 
-#endif /* LOGGING_INCLUDE_LOGGING_MESSAGE_APPENDER_H_ */
+#endif  // INCLUDE_LOGGING_MESSAGE_APPENDER_H_
