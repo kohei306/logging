@@ -26,8 +26,8 @@
 #include <string>
 #include <vector>
 #include <memory>
-#include "appender_config.h"
-#include "log_level.h"
+#include "logging/appender_config.h"
+#include "logging/log_level.h"
 
 namespace logging {
 

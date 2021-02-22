@@ -24,9 +24,9 @@
 #define INCLUDE_LOGGING_CONSOLE_APPENDER_H_
 
 #include <memory>
-#include "appender_base.h"
-#include "message_appender.h"
-#include "default_format_policy_with_newline.h"
+#include "logging/appender_base.h"
+#include "logging/message_appender.h"
+#include "logging/default_format_policy_with_newline.h"
 
 namespace logging {
 

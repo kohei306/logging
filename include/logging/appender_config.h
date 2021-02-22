@@ -25,7 +25,7 @@
 
 #include <string>
 #include <iostream>
-#include "log_level.h"
+#include "logging/log_level.h"
 
 namespace logging {
 

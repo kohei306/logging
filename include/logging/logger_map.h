@@ -28,7 +28,7 @@
 #include <memory>
 #include <map>
 #include <vector>
-#include "logger.h"
+#include "logging/logger.h"
 
 namespace logging {
 

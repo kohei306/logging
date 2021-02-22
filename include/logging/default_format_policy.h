@@ -24,7 +24,7 @@
 #define INCLUDE_LOGGING_DEFAULT_FORMAT_POLICY_H_
 
 #include <string>
-#include "log_event.h"
+#include "logging/log_event.h"
 
 namespace logging {
 

@@ -28,9 +28,9 @@
 #include <memory>
 #include <fstream>
 #include <string>
-#include "appender_base.h"
-#include "message_appender.h"
-#include "default_format_policy_with_newline.h"
+#include "logging/appender_base.h"
+#include "logging/message_appender.h"
+#include "logging/default_format_policy_with_newline.h"
 
 namespace logging {
 

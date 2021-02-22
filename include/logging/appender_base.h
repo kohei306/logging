@@ -27,8 +27,8 @@
 #include <string>
 #include <memory>
 #include <utility>
-#include "appender_interface.h"
-#include "appender_config.h"
+#include "logging/appender_interface.h"
+#include "logging/appender_config.h"
 
 namespace logging {
 

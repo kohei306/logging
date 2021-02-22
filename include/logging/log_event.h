@@ -24,7 +24,7 @@
 #define INCLUDE_LOGGING_LOG_EVENT_H_
 
 #include<string>
-#include "logger_config.h"
+#include "logging/logger_config.h"
 
 namespace logging {
 

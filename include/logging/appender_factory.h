@@ -27,9 +27,9 @@
 #include <utility>
 #include "appender_interface.h"
 #include "console_appender.h"
-#include "file_appender.h"
+#include "logging/file_appender.h"
 #ifdef ARALOG
-#include "aralog_appender.h"
+#include "logging/aralog_appender.h"
 #endif
 
 namespace logging {

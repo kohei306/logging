@@ -27,7 +27,7 @@
 #include <memory>
 #include <vector>
 
-#include "log_event.h"
+#include "logging/log_event.h"
 
 namespace logging {
 

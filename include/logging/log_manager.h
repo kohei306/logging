@@ -25,9 +25,9 @@
 
 #include <string>
 #include <memory>
-#include "logger.h"
-#include "logger_map.h"
-#include "logging_configurator.h"
+#include "logging/logger.h"
+#include "logging/logger_map.h"
+#include "logging/logging_configurator.h"
 
 namespace logging {
 

@@ -24,7 +24,7 @@
 #define INCLUDE_LOGGING_ARA_LOG_FORMAT_POLICY_H_
 
 #include <string>
-#include "log_event.h"
+#include "logging/log_event.h"
 
 namespace logging {
 
